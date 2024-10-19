@@ -1,14 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-import Home from './components/Home';
+import Sidebar from './components/sidebar/Sidebar';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <Home></Home>
-
-    </div>
+    <>
+    <Sidebar />
+    </>
   );
 }
+
 
 export default App;

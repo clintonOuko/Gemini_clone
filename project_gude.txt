@@ -1,0 +1,24 @@
+create the app
+add some basic styling that applies to all the pages in the App.css file
+in the assets folder, add all the asset images and create a new file assets.js
+import all the assets added and then crete a const variable known as assets that exports it 
+
+import history_icon from './history_icon.png'
+import menu_icon from './menu_icon.png'
+
+export const assets = {
+    history_icon,
+    menu_icon,
+}
+create a components folder in the src folder and add a sidebar folder inside, and a main folder 
+in the sidebar folder create a file sidebar.jsx, and a sidebar.css
+create a functional component and import the sidebar.css because theyre in the same folder
+in the App.js file, instead of returning the className = 'App', return an empty fragment and pass the Sidebar inside it 
+We will create all the frontend in the sidebar.js file 
+create two divs in the sidebar div
+to add an image from the assets, 
+    import {assets} from '../../assets/assets
+    <img  className='menu' src={assets.menu_icon} alt=" />
+after adding all the html to the frontend, style using the classes in the sidebar.css 
+
+// That is all the frontend for the sidebar
