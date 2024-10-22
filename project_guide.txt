@@ -1,0 +1,65 @@
+create the app
+add some basic styling that applies to all the pages in the App.css file
+in the assets folder, add all the asset images and create a new file assets.js
+import all the assets added and then crete a const variable known as assets that exports it 
+
+import history_icon from './history_icon.png'
+import menu_icon from './menu_icon.png'
+
+export const assets = {
+    history_icon,
+    menu_icon,
+}
+create a components folder in the src folder and add a sidebar folder inside, and a main folder 
+in the sidebar folder create a file sidebar.jsx, and a sidebar.css
+create a functional component and import the sidebar.css because theyre in the same folder
+in the App.js file, instead of returning the className = 'App', return an empty fragment and pass the Sidebar inside it 
+We will create all the frontend in the sidebar.js file 
+create two divs in the sidebar div
+to add an image from the assets, 
+    import {assets} from '../../assets/assets
+    <img  className='menu' src={assets.menu_icon} alt=" />
+after adding all the html to the frontend, style using the classes in the sidebar.css 
+
+// TAdding functionalities to the sidebar page
+when the menu icon is clicked it expands and reduces the sidebar size
+sidebar.jsx>>
+    using state variables
+    const [extended, setExtended] = useState(false); // when true then the sidebar will be fully displayed but when false it wont be displayed 
+
+const [extended, setExtended]:
+
+This is array destructuring that pulls two elements out of the array returned by useState().
+extended: This is the state variable. It holds the current value of the state, which in this case starts as false.
+setExtended: This is the function used to update the state. You call this function when you want to change the value of extended.
+
+Now use the above functionality and the ternary operator to check on the sidebar variables and set them as needed
+    {extended?<p>New Chat</p>:null} // if true then it will be displayed and if false it wont be displayed 
+
+do this for the recent entry also and the bottom section
+                    {extended?<p>Help</p>:null}
+after completion the sidebar now reduces its size as it was expected
+// Adding the functionality to the button click to set the state variable as false or true 
+the function setExtended is defined as an arrow function and passed as an onClick which when clicked toggles the state 
+    <img  onClick={()=>{setExtended(prev=>!prev)}} className='menu' src={assets.menu_icon} alt="" />
+
+// Adding fonts to the website 
+in google search for outfit font > forms.google.com >> get font >> get embedded code >> import >> copyfirst import link given 
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+in the App.css file add the above link and set the font-family to outfit 
+
+
+
+MAIN COMPONENT 
+
+Add all the frontend and style it
+// now its time to integrate with the gemini api 
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+useState()
+its a react hook which lets you define a state to a functional component.
+    const [state, setState] = useState(initialValue);
+the state is the current value which you want to be held 
+the setState is teh function that you use to update the values . when it is called, the components will rerender the new state value 
+example usage :
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+
+
+
+
+  
