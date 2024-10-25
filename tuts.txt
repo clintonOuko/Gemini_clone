@@ -15,6 +15,64 @@ example usage :
     </div>
   );
 
+createContext();
+The createContext() is used to create a context object which can be used to share data to different components in a component tree without the need to pass props manually at every level. This is important for managing configurations that components needs access to for example the user information , theme settings, language preferences
+
+Example on how to use the createContext
+
+STEP 1:
+// ThemeContext.js
+import { createContext } from "react";
+// Create a context for the theme with a default value (optional)
+export const ThemeContext = createContext("light");
+STEP 2: provide the context value 
+    // App.js
+    import React, { useState } from "react";
+    import { ThemeContext } from "./ThemeContext";
+    import ThemedComponent from "./ThemedComponent";
+
+    function App() {
+      const [theme, setTheme] = useState("light");
+
+      return (
+        <ThemeContext.Provider value={theme}>
+          <ThemedComponent />
+          <button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+            Toggle Theme
+          </button>
+        </ThemeContext.Provider>
+      );
+    }
+
+    export default App;
+
+
+STEP 3: Consume the context Value 
+now in any of the components in the project that needs the theme component, the useComponent hook can be used 
+    // ThemedComponent.js
+    import React, { useContext } from "react";
+    import { ThemeContext } from "./ThemeContext";
+
+    function ThemedComponent() {
+      const theme = useContext(ThemeContext);
+
+      return <div style={{ background: theme === "light" ? "#fff" : "#333", color: theme === "light" ? "#000" : "#fff" }}>The current theme is {theme}</div>;
+    }
+
+    export default ThemedComponent;
+
+In the above example, 
+ThemeContext is created using createContext().
+The Provider is set in App with the value of the current theme state.
+ThemedComponent consumes the theme value with useContext(ThemeContext) and updates its style based on the theme.
+
+NOTE: THE Provider can be set to either the ThemeContext.js file or in the app.js file 
+Order of operation 
+  1. App Component: Entry point; initializes the theme state and provides it to the component tree.
+  2. ThemeContext: Created with createContext to hold and share the theme value.
+  3. ThemedComponent: Consumes the theme value and applies it to its styling.
+
+
 
 
 

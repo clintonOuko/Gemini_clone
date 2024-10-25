@@ -53,7 +53,116 @@ in the App.css file add the above link and set the font-family to outfit
 MAIN COMPONENT 
 
 Add all the frontend and style it
+
+
 // now its time to integrate with the gemini api 
+on a new tab, search gemini API, create a new API, then generate an API Key, shown below
+
+
+in the src, create a new folder config, then create a new file gemini.js
+gemini.js >> const apiKey = ""; // The api key is passed inside it 
+copy the code from the google AI studio and paste it inside the gemini.js 
+create a .env file and install dotenv(npm install dotenv)
+require('dotenv').config(); // Load environment variables
+now you can access the api key 
+  const apiKey = process.env.GEMINI_API_KEY;
+
+In the async function run() copied from the gemini website, some changes area passed to enable it work properly as needed.
+    async function run(prompt)
+    const result = await chatSession.sendMessage(prompt);
+
+Export the run function as a default to be able to use it in the frontend function
+eport default run;
+
+create a context folder and a context.js file.
+create a context and define the contextProvider passing in the props as a value to the arrow function 
+
+in the index.js file, remove the React.StrictMode and pass the contextProvider 
+  <ContextProvider>
+    <App />
+  </ContextProvider>
+now the api is supported 
+
+in the context.js file, create a new function onSent() which takes in a prompt and passes it into the run() function from the gemini.js file 
+    const onSent = async (prompt) =>{
+        await run(prompt);
+    }
+
+    onSent("Define consistency")
+
+ORDER OF EXECUTION OF FILES AT THIS STAGE 
+load the page,
+index.js >>> execute the <ContextProvider /> component. when rendered, it goes to the context.js >>>> file in the ContextProvider function, the context.provider supplies the context that should be passed.
+inside ContextProvider, the createContext-generated context (from context.Provider) supplies contextValue to its children. props.children (in this case, the <App /> component) is rendered inside ContextProvider, so all components inside <App /> have access to this context.
+Any child component can consume contextValue if it imports context and uses the useContext hook. 
+
+
+
+// change the following in the gemini.js file to allow it work as expected
+import {
+    GoogleGenerativeAI,
+    HarmCategory,
+    HarmBlockThreshold,
+  } from "@google/generative-ai";
+  this is because the requrie cant be imported directly from a frontend app.
+
+
+LINKING THE PROMPT FROM USER TO THE GEMINI API 
+create a new state variable inside the contextProvider function 
+
+    const [input, setInput] = useState(""); // to get the user inputs 
+    const [recentPrompt, setRecentPrompt] = useState(""); // to get the recent prompt 
+    const [prevPrompts, setPrevPrompts] = useState([]);// recent prompts to be set in the sidebar under recent section 
+    const [showResult, setShowResult] = useState(false);// to show the results of the prompts entered by the user 
+    const [loading, setLoading] = useState(false); // to set the loading status of the data 
+    const [resultData, setResultData] = useState(""); // to display the data once it has been gully loaded 
+
+add the following in to the context value which is passed as a value in the context file 
+    const contextValue = {
+        onSent,
+        recentPrompt,
+        setRecentPrompt,
+        prevPrompts,
+        setPrevPrompts,
+        loading,
+        resultData,
+        input,
+        setInput,
+        showResult
+    }
+
+in the main.js file, retrieve all the passed values 
+  const {onSent, recentPrompt, showResult, loading, resultData, setInput, input} = useContext(context)
+
+in the input field,
+    <input  onChange={(e)=>setInput(e.target.value)} value={input} type='text' placeholder='Ask Gemini'  />
+the context.js file, add the input as a parameter to the onSet function 
+in the send button, set the onClick to the onSent 
+       <img onClick={()=>onSent()} src={assets.send_icon} />
+when clicked, it will show the value on the console.
+
+    const onSent = async (prompt) =>{
+        setResultData(""); // to remove previous answer from state variable
+        setLoading(true); // a loading animation
+        setShowResult(true); // show the results to the screen 
+        await run(input);
+    }
+In the gemini.js, return the response 
+
+    const onSent = async (prompt) =>{
+        setResultData(""); // to remove previous answer from state variable
+        setLoading(true); // a loading animation
+        setShowResult(true); // show the results to the screen 
+        const response = await run(input); // get response from the gemini API 
+        setResultData(response); // to set the results for display 
+        setLoading(false); // to stop the loading process 
+        setInput(""); // to set the Input file to blank 
+    }
+In the main container, add the data 
+when returning the results, the following is how to do it  
+
+
+
 
 
 
