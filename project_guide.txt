@@ -161,7 +161,32 @@ In the gemini.js, return the response
 In the main container, add the data 
 when returning the results, the following is how to do it  
 
+// Adding the previous prompts to be stored 
+in the onSent() function,  add the following 
+        setPrevPrompts(prev=>[...prev, input])
+this will save the previous prompt for easy access in the sidebar 
+sidebar.js>>
+get the variables from the context file created 
+    const {onSent, prevPrompts, setRecentPrompt} = useContext(context);
+under the recent section, 
+                    <div className="recent">
+                        <p className="recent-title">Recent</p>
+                        {prevPrompts.map((item, index) => {
+                            return (
+                                <div className="recent-entry">
+                                    <img src={assets.message_icon} alt="" />
+                                    <p>{item} ...</p>
+                                </div>
+                            )
+                        })}
 
+                    </div>
+
+To deal with the long questions added, the following can be a perfect way to handle it 
+      <p>{item.slice(0,18)} ...</p>
+
+
+ 
 
 
 
