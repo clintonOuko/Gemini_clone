@@ -33,7 +33,18 @@ const ContextProvider = (props) =>{
 
 
 
-        const response = await run(input);
+        let response = await run(input);
+
+        if(prompt != undefined){
+            response = await run(prompt)
+            setRecentPrompt(prompt)
+
+        } else{
+            setPrevPrompts(prev=>[...prev, input])
+            setRecentPrompt(input)
+            response = await run(input)
+        }
+
         let responseArray = response.split("**");
         let newResponse ="";
         for(let i=0; i<responseArray.length; i++){

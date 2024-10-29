@@ -184,7 +184,7 @@ under the recent section,
 
 To deal with the long questions added, the following can be a perfect way to handle it 
       <p>{item.slice(0,18)} ...</p>
-
+To load the promt of previous chats and pass them to the frontend, 
 
  
 
